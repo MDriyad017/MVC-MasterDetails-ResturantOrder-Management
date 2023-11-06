@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">Smart Resturant</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", new { }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Food", "Index", "Foods", new { }, new { @class = "nav-link" })
+                    </li>
+                                        <li class="nav-item">
+                        @Html.ActionLink("Order", "Index", "Orders", new { }, new { @class = "nav-link" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+       
+        <footer class="d-flex justify-content-center">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+
+
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/jquery-3.7.1.js"></script>
+
+    @RenderSection("styles", required: false)
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $("#btnADD").click(function (e) {
+            e.preventDefault();
+            var foodContainer = $("#FoodContainer");
+
+            $.ajax({
+                url: "/Orders/addNewFood",
+                type: "GET",
+                success: function (data) {
+                    foodContainer.append(data)
+                }
+            })
+
+        })
+
+        $(document).on("click", "#btnDelete", function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        })
+
+    </script>
+
+</body>
+</html>

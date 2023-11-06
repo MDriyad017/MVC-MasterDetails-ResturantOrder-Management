@@ -1,0 +1,34 @@
+﻿@model ev_01.Models.Food
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>ADD New Food</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FoodName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FoodName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FoodName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class=" btn btn-primary mt-2 mb-3"><i class="fa fa-save"></i> Save Food</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index", "Foods")" class="text-decoration-none"><i class="fa fa-arrow-left"></i> Back To List</a>
+</div>

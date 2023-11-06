@@ -1,0 +1,88 @@
+﻿@model ev_01.Models.ViewModel.OrderVM
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-6">
+            <h3 class="mb-5">ADD New Order</h3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row mb-2 ">
+                @Html.LabelFor(x => x.CustomerName, htmlAttributes: new { @class = "col-form-label col-3" }):
+                <div class="col-6">
+                    @Html.TextBoxFor(x => x.CustomerName, new { @class = "form-control" })
+                </div>
+                <div class="col-3">
+                    @Html.ValidationMessageFor(x => x.CustomerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                @Html.LabelFor(x => x.PictureFile, htmlAttributes: new { @class = "col-form-label col-3" }):
+                <div class="col-6">
+                    @Html.TextBoxFor(x => x.PictureFile, new { @class = "form-control", type = "file" })
+                </div>
+                <div class="col-3">
+                    @Html.ValidationMessageFor(x => x.PictureFile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                @Html.LabelFor(x => x.OrderDate, htmlAttributes: new { @class = "col-form-label col-3" }):
+                <div class="col-6">
+                    @Html.TextBoxFor(x => x.OrderDate, new { @class = "form-control", type = "date" })
+                </div>
+                <div class="col-3">
+                    @Html.ValidationMessageFor(x => x.OrderDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                @Html.LabelFor(x => x.TableNumber, htmlAttributes: new { @class = "col-form-label col-3" }):
+                <div class="col-6">
+                    @Html.TextBoxFor(x => x.TableNumber, new { @class = "form-control" })
+                </div>
+                <div class="col-3">
+                    @Html.ValidationMessageFor(x => x.TableNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                @Html.LabelFor(x => x.AmountPaid, htmlAttributes: new { @class = "col-form-label col-3" }):
+                <div class="col-6">
+                    <div class="form-check">
+                        @Html.CheckBoxFor(x => x.AmountPaid)
+                    </div>
+                </div>
+                <div class="col-3">
+                    @Html.ValidationMessageFor(x => x.AmountPaid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <h3 class="text-center">Select Food</h3>
+            <div class="d-flex justify-content-end">
+                <a href="#" id="btnADD" class="btn btn-dark btn-sm mb-2"><i class="fa fa-plus-circle"></i> ADD Food</a>
+            </div>
+            <div id="FoodContainer">
+                @Html.Action("addNewFood", "Orders")
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end fw-bold">
+        <button type="submit" class="btn btn-primary fw-bold"><i class="fa fa-save"> Save Data</i></button>
+        
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index", "Orders")" class="text-decoration-none"><i class="fa fa-arrow-left"></i> Back To List</a>
+</div>
+

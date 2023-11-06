@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ev_01.Models.Food>
+@using PagedList
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3 class="alert alert-success display-6 fw-bold text-center mt-2">Food Lists</h3>
+
+<div class="d-flex justify-content-end">
+    <a href="@Url.Action("Create", "Foods")" class="btn btn-outline-primary fw-bold mb-2"><i class="fa fa-plus"></i> ADD Food</a>
+</div>
+
+
+<table class="table table-responsive-sm table-striped table-bordered">
+    <tr class="table-info">
+        <th>
+            @Html.DisplayNameFor(model => model.FoodName)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodName)
+            </td>
+            <td>
+                <div>
+                    <a href="@Url.Action("Edit", "Foods", new {id = item.FoodId})" class="btn btn-success btn-sm" style="margin-right:3px;"><i class="fa fa-edit"></i></a>
+
+                    <a href="@Url.Action("Delete", "Foods", new { id = item.FoodId })" class="btn btn-danger btn-sm" style="margin-right:3px;"><i class="fa fa-trash"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="d-flex justify-content-end">
+    @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>
+
+@section styles{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}

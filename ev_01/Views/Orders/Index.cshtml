@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ev_01.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="alert alert-success display-6 fw-bold text-center mt-2">Order List</h2>
+
+<div class="d-flex justify-content-between mb-3">
+
+    @using (Html.BeginForm("Index", "Orders", FormMethod.Get))
+    {
+        <div class="input-group mb-3">
+            <div style="width:330px">
+                @Html.TextBox("searchCustomerName", null, new { @class = "form-control", placeholder = "Search by Customer Name" })
+            </div>
+
+            <div class="input-group-append">
+                &nbsp;
+                <button type="submit" class="btn btn-outline-primary"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    }
+
+    <div>
+        <a href="@Url.Action("Create", "Orders")" class="btn btn-outline-primary fw-bold" id="btnCreate"><i class="fa fa-plus"></i> ADD Order</a>
+    </div>
+</div>
+
+@foreach (var order in Model)
+{
+    <div class="card mb-2">
+        <div class="card-header d-flex justify-content-between">
+
+            <div>
+                <img src="@order.Picture" width="34" height="34" class="me-4" />
+                <label class="me-4"><b>Customer: </b> @Html.DisplayFor(x => order.CustomerName)</label>
+                <label class="me-4"><b>Order Date: </b> @Html.DisplayFor(x => order.OrderDate)</label>
+                <label class="me-4"><b>Table Number: </b> @Html.DisplayFor(x => order.TableNumber)</label>
+                <label class="me-4"><b>Amount Paid: </b> @Html.DisplayFor(x => order.AmountPaid)</label>
+            </div>
+
+            <div>
+                <a href="@Url.Action("Edit", "Orders", new {id = order.OrderId})" class="btn btn-success btn-sm" style="margin-right:3px;"><i class="fa fa-edit"></i></a>
+
+                <a href="@Url.Action("Delete", "Orders", new { id = order.OrderId })" class="btn btn-danger btn-sm" style="margin-right:3px;"><i class="fa fa-trash"></i></a>
+
+            </div>
+        </div>
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-success">
+                    <tr>
+                        <th>
+                            Orderd Food
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in order.Receipts)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(x => item.Food.FoodName)</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+  
+}
